@@ -14,7 +14,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails', '4.3.1'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
-
+gem 'bootstrap-sass', '3.3.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
