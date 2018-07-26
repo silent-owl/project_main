@@ -15,7 +15,12 @@
         <a href="#">Create rooms and make pictures like a artist</a>
       </h2>
 
-    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+    
+    <% if logged_in? %>
+      <%= link_to "Start drawing!", "#", class: "btn btn-lg btn-primary" %>        
+    <% else %>
+     <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>       
+    <% end %>
     </div>
 
 <!-- <%= link_to image_tag("rgb.png", alt: "Art Space logo"),
