@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update]
   before_action :correct_user,   only: [:edit, :update]
-
+  before_action :banned
   def index
     @users = User.all
   end
@@ -41,10 +41,25 @@ class UsersController < ApplicationController
     end
   end
 
+
   def delete_users
     if params[:user_check]
       User.where(id: params[:user_check]).destroy_all
     end 
+    redirect_to users_url
+  end
+
+  def ban_users
+    if params[:user_check]
+      User.where(id: params[:user_check]).update_all(ban:true)
+    end  
+    redirect_to users_url
+  end
+
+  def unban_users
+    if params[:user_check]
+      User.where(id: params[:user_check]).update_all(ban:false)
+    end
     redirect_to users_url
   end
 
@@ -71,4 +86,12 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       redirect_to(root_url) unless current_user?(@user)
     end
+
+
+  protected
+    def banned
+      if current_user.present? && current_user.ban?
+        redirect_to root_url, :notice=>"You are banned on this site!"
+      end 
+    end  
 end

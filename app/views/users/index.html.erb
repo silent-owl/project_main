@@ -7,11 +7,11 @@
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2" role="group" aria-label="First group">            
             <!-- <button type="submit" class="btn btn-lg btn-dark fas fa-lock" id="lock" ></button> -->
-            <%= link_to "", {action: :delete_users}, method: :delete, :class=>'btn btn-lg btn-dark fas fa-lock', id: 'lock' %>
+            <%= link_to "", {action: :ban_users}, method: :delete, remote: true, :class=>'btn btn-lg btn-dark fas fa-lock', id: 'ban' %>
            <!--  <button type="submit" class="btn btn-lg btn-dark fas fa-unlock" id="unlock"></button> -->
-            <%= link_to "", {action: :delete_users}, method: :delete, :class=>'btn btn-lg btn-dark fas fa-unlock', id: 'unlock' %>
+            <%= link_to "", {action: :unban_users}, method: :delete, remote: true, :class=>'btn btn-lg btn-dark fas fa-lock-open', id: 'unban' %>
             <!-- <button type="submit" class="btn btn-lg btn-dark fas fa-trash" id="trash"></button> -->
-            <%= link_to "", {action: :delete_users}, method: :delete, :class=>'btn btn-lg btn-dark fas fa-trash', id: 'trash' %>
+            <%= link_to "", {action: :delete_users}, method: :delete, remote: true, :class=>'btn btn-lg btn-dark fas fa-trash-alt', id: 'trash' %>
         </div>
     </div>
 
@@ -45,13 +45,13 @@
                     <%= user.email %> 
                 </td>
                 <td>
-                    <input type="checkbox" class="checkbox" disabled />
+                    <input type="checkbox" class="checkbox_ban" disabled data-id="<%= user.id %>"<%= user.ban ? ' checked="checked"' : '' %>>
                 </td>
             </tr>
       <% end %>  
     </table>
 
-    <div id="showGoods"><b>Ammount of users: <span style="color:green;" id="goodsLenght"></span></b></div>
+    <div id="show_ch_users"><b>Ammount of chousen users: <span style="color:green;" id="users_choise"></span></b></div>
 </form>
 
 
@@ -66,19 +66,27 @@
 <script type="text/javascript">
     $('.document').ready(function () {
         $("#trash").attr("disabled", true);
-        $("#lock").attr("disabled", true);
-        $("#unlock").attr("disabled", true);
+        $("#ban").attr("disabled", true);
+        $("#unban").attr("disabled", true);
 
-        var href = $('#trash').attr('href')
+        
 
-         $('#trash').on('click',function(){
-           var newHref = href + '?'
-           $('.checkbox_user').each(function(){
-            if ($(this).prop('checked') == true) newHref+='user_check%5B%5D='+$(this).val()+'&'
-           });
-           $('#trash').attr('href',newHref)
 
-         });
+
+        ["#trash","#ban","#unban"].forEach((value) => {
+            let button_id = $(value); 
+            let href = button_id.attr('href'); 
+            button_id.on('click', (event) => { 
+                let newHref = href + '?' 
+                $('.checkbox_user').each(function () { 
+                    if ($(this).prop('checked') == true) { 
+                        newHref += 'user_check%5B%5D=' + $(this).val() + '&' 
+                    } 
+                }); 
+            button_id.attr('href', newHref) 
+            }); 
+        })
+
 
         $('#checkBoxAll').click(function () {
             if ($(this).is(":checked"))
@@ -91,16 +99,16 @@
         $('.checkbox').on('click', function () {
             var count = $('.checkbox_user:checked').length;
 
-            $("#goodsLenght").text(count);
+            $("#users_choise").text(count);
             if (count == 0) {
                 $("#trash").attr("disabled", true);
-                $("#lock").attr("disabled", true);
-                $("#unlock").attr("disabled", true);
+                $("#ban").attr("disabled", true);
+                $("#unban").attr("disabled", true);
             }
             else {
                 $("#trash").attr("disabled", false);
-                $("#lock").attr("disabled", false);
-                $("#unlock").attr("disabled", false);
+                $("#ban").attr("disabled", false);
+                $("#unban").attr("disabled", false);
             }
 
 
