@@ -17,12 +17,18 @@
 
     
     <% if logged_in? %>
-      <%= link_to "Start drawing!", "#", class: "btn btn-lg btn-primary" %>        
+      <%= link_to "Start drawing!", signup_path, class: "btn btn-lg btn-primary"%>        
     <% else %>
      <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>       
     <% end %>
     </div>
-
+<!-- <script type="text/javascript">
+  $(document).ready(function() {
+    $('a[disabled=disabled]').click(function(event){
+        event.preventDefault(); 
+    });
+});
+</script> -->
 <!-- <%= link_to image_tag("rgb.png", alt: "Art Space logo"),
             '#' %> -->
   </body>

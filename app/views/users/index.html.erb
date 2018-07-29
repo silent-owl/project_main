@@ -1,0 +1,109 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" ; integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<form name="MainForm">
+ 
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">            
+            <!-- <button type="submit" class="btn btn-lg btn-dark fas fa-lock" id="lock" ></button> -->
+            <%= link_to "", {action: :delete_users}, method: :delete, :class=>'btn btn-lg btn-dark fas fa-lock', id: 'lock' %>
+           <!--  <button type="submit" class="btn btn-lg btn-dark fas fa-unlock" id="unlock"></button> -->
+            <%= link_to "", {action: :delete_users}, method: :delete, :class=>'btn btn-lg btn-dark fas fa-unlock', id: 'unlock' %>
+            <!-- <button type="submit" class="btn btn-lg btn-dark fas fa-trash" id="trash"></button> -->
+            <%= link_to "", {action: :delete_users}, method: :delete, :class=>'btn btn-lg btn-dark fas fa-trash', id: 'trash' %>
+        </div>
+    </div>
+
+    <table class="table" style="border-width: 2px">
+        <tr>
+            <th>
+                <input type="checkbox" class="checkbox" id="checkBoxAll">
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                <strong">Blocked</strong>
+            </th>
+        </tr>
+
+        <% @users.each do |user| %>
+        
+            <tr>
+                <td>
+                	<%= check_box_tag "user_check", user.id, false, class: 'checkbox checkbox_user' %>
+                    <!-- <input type="checkbox" class="checkbox user" name="user_check" /> -->
+                </td>
+                <td>
+                   	<%= user.name %> 
+                </td>
+                <td>
+                    <%= user.email %> 
+                </td>
+                <td>
+                    <input type="checkbox" class="checkbox" disabled />
+                </td>
+            </tr>
+      <% end %>  
+    </table>
+
+    <div id="showGoods"><b>Ammount of users: <span style="color:green;" id="goodsLenght"></span></b></div>
+</form>
+
+
+<!-- <script type="text/javascript">
+  $(document).ready(function() {
+    $('a[disabled=disabled]').click(function(event){
+        event.preventDefault(); 
+    });
+});
+</script> -->
+
+<script type="text/javascript">
+    $('.document').ready(function () {
+        $("#trash").attr("disabled", true);
+        $("#lock").attr("disabled", true);
+        $("#unlock").attr("disabled", true);
+
+        var href = $('#trash').attr('href')
+
+         $('#trash').on('click',function(){
+           var newHref = href + '?'
+           $('.checkbox_user').each(function(){
+            if ($(this).prop('checked') == true) newHref+='user_check%5B%5D='+$(this).val()+'&'
+           });
+           $('#trash').attr('href',newHref)
+
+         });
+
+        $('#checkBoxAll').click(function () {
+            if ($(this).is(":checked"))
+                $('input[name="user_check"]').prop('checked', true);
+            else
+                $('input[name="user_check"]').prop('checked', false);
+        });
+
+
+        $('.checkbox').on('click', function () {
+            var count = $('.checkbox_user:checked').length;
+
+            $("#goodsLenght").text(count);
+            if (count == 0) {
+                $("#trash").attr("disabled", true);
+                $("#lock").attr("disabled", true);
+                $("#unlock").attr("disabled", true);
+            }
+            else {
+                $("#trash").attr("disabled", false);
+                $("#lock").attr("disabled", false);
+                $("#unlock").attr("disabled", false);
+            }
+
+
+        });
+    });
+</script>
