@@ -1,43 +1,100 @@
-<footer class="footer">
-  <div class="container">
-    
-  </div>
-
-</footer>
 
 <!-- Footer -->
 <!-- Footer -->
-<footer class="page-footer font-smallpt-4" style="background-color: #EEEEEE"> 
 
-    <!-- Footer Text -->
-    <div class="container-fluid">
-
+<!-- Footer -->
+<footer class="page-footer font-small pt-4" id="footer" style="background-color: #eeeeee;">
+    <hr id="hr_body">
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left">
+      
       <!-- Grid row -->
-      <div class="row" >
-        <div class="col-md-4 col-ex">
-            <!-- <h4>One of three columns</h4> -->
-            <h5>One of three columns</h5>
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-md-6 mt-md-0 mt-3">
+
+          <!-- Content -->
+          <h5 class="text-uppercase"><strong>Art space</strong></h5>
+          <p>You can create pictures together with your friends on this site. Have fun!</p>
+
         </div>
-        <div class="col-md-4 col-ex">
-            <!-- <h4>One of three columns</h4> -->
-            <h5>One of three columns</h5>
-        </div>
-        <div class="col-md-4 col-ex">
-            <!-- <h4>One of three columns</h4> -->
-            <h5>One of three columns</h5>
-        </div>
+        <!-- Grid column -->
+
+        
+        <!-- Grid column -->
+        <div class="col-md-3 mb-md-0 mb-3">
+
+            <!-- Links -->
+            <h5 class="text-uppercase"><strong>Links</strong></h5>
+
+            <ul class="list-unstyled">
+              <li>           
+                <%= link_to "Home", root_path %>
+              </li>
+              <li>
+                <%= link_to "About us", "#" %>
+              </li>
+              
+            </ul>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          
+          <div class="col-md-3 mb-md-0 mb-3">
+
+            <!-- Links -->
+            <h5 class="text-uppercase"><strong>Links</strong></h5>
+
+            <ul class="list-unstyled">
+              <% if logged_in? %>
+                <li>
+                  <%= link_to "Users",   users_path %>
+                </li>
+                <li>
+                 <%= link_to "Profile",   current_user %>
+                </li>
+              <% else %>
+                <li><%= link_to "Log in", login_path %></li>
+                <li><%= link_to "Sign up", signup_path %></li>
+              <% end %>
+            </ul>
+
+          </div>
+          
+          <!-- Grid column -->
 
       </div>
       <!-- Grid row -->
 
     </div>
-    <!-- Footer Text -->
+    <!-- Footer Links -->
 
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© 2018 Copyright:
-      <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
+    <div class="footer-copyright text-center" style="margin-top: 20px;">© 2018 Copyright:
+      <%= link_to "Artspace.com",   root_path %>
     </div>
     <!-- Copyright -->
 
   </footer>
-  <!-- Footer
+  <!-- Footer -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

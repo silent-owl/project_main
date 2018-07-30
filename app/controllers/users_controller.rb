@@ -91,7 +91,8 @@ class UsersController < ApplicationController
   protected
     def banned
       if current_user.present? && current_user.ban?
-        redirect_to root_url, :notice=>"You are banned on this site!"
+        redirect_to root_url
+        flash[:danger] = "You are banned on this site!"
       end 
     end  
 end

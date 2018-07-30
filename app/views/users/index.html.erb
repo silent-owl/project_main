@@ -5,7 +5,7 @@
 <form name="MainForm">
  
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group mr-2" role="group" aria-label="First group">            
+        <div class="btn-group mr-2" role="group" aria-label="First group" style="padding: 2px;margin-bottom: 5px; border: 2px solid lightgrey;">            
             <!-- <button type="submit" class="btn btn-lg btn-dark fas fa-lock" id="lock" ></button> -->
             <%= link_to "", {action: :ban_users}, method: :delete, remote: true, :class=>'btn btn-lg btn-dark fas fa-lock', id: 'ban' %>
            <!--  <button type="submit" class="btn btn-lg btn-dark fas fa-unlock" id="unlock"></button> -->
@@ -15,8 +15,9 @@
         </div>
     </div>
 
-    <table class="table" style="border-width: 2px">
-        <tr>
+    <table class="table">
+        <thead>
+            <tr>
             <th>
                 <input type="checkbox" class="checkbox" id="checkBoxAll">
             </th>
@@ -26,20 +27,22 @@
             <th>
                 Email
             </th>
-            <th>
-                <strong">Blocked</strong>
+            <th class="center">
+                <strong>Blocked</strong>
             </th>
         </tr>
-
-        <% @users.each do |user| %>
-        
+   
+        </thead>
+        <tbody>
+            <% @users.each do |user| %>
+            
             <tr>
                 <td>
-                	<%= check_box_tag "user_check", user.id, false, class: 'checkbox checkbox_user' %>
+                    <%= check_box_tag "user_check", user.id, false, class: 'checkbox checkbox_user' %>
                     <!-- <input type="checkbox" class="checkbox user" name="user_check" /> -->
                 </td>
                 <td>
-                   	<%= user.name %> 
+                    <%= user.name %> 
                 </td>
                 <td>
                     <%= user.email %> 
@@ -48,7 +51,9 @@
                     <input type="checkbox" class="checkbox_ban" disabled data-id="<%= user.id %>"<%= user.ban ? ' checked="checked"' : '' %>>
                 </td>
             </tr>
-      <% end %>  
+            <% end %>     
+        </tbody>
+        
     </table>
 
     <div id="show_ch_users"><b>Ammount of chousen users: <span style="color:green;" id="users_choise"></span></b></div>
@@ -69,9 +74,6 @@
         $("#ban").attr("disabled", true);
         $("#unban").attr("disabled", true);
 
-        
-
-
 
         ["#trash","#ban","#unban"].forEach((value) => {
             let button_id = $(value); 
@@ -87,6 +89,7 @@
             }); 
         })
 
+        
 
         $('#checkBoxAll').click(function () {
             if ($(this).is(":checked"))
@@ -95,9 +98,11 @@
                 $('input[name="user_check"]').prop('checked', false);
         });
 
+        
 
         $('.checkbox').on('click', function () {
             var count = $('.checkbox_user:checked').length;
+
 
             $("#users_choise").text(count);
             if (count == 0) {
@@ -110,6 +115,9 @@
                 $("#ban").attr("disabled", false);
                 $("#unban").attr("disabled", false);
             }
+
+
+            // if (($(this).is(":unchecked")) && ($('#checkBoxAll').is(":checked")) )
 
 
         });

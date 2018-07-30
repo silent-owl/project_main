@@ -1,1 +1,26 @@
-<%= @user.name %>, <%= @user.email %>
+
+<form name="UserForm" style="padding-top: 10%;">
+	<h1>User info</h1>
+	<table class="table table-sm" style="width: 50%; margin-left: 25%;">
+	        <thead>
+	            <tr>
+		            <th class="center">
+		                Name
+		            </th>
+		            <th class="center">
+		                Email
+		            </th>
+	        	</tr>
+	        </thead>
+	        <tbody class="center">
+	            <tr>  
+	                <td>
+	                    <%= @user.name %> 
+	                </td>
+	                <td>
+	                    <%= @user.email %> 
+	                </td>
+	            </tr>         
+	        </tbody>
+	</table>
+</form>
